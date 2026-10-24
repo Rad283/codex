@@ -1,0 +1,31 @@
+name: Windows build and tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure x64
+        run: cmake -S . -B build -A x64
+      - name: Build
+        run: cmake --build build --config Release --parallel 4
+      - name: Test runtime, injection and UI
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item build/Release/orbit.exe, build/Release/orbit_host.exe, build/Release/orbit_runtime.dll, README.md dist/
+          Copy-Item build/_deps/luau-src/LICENSE.txt dist/LUAU-LICENSE.txt
+          Copy-Item examples dist/examples -Recurse
+      - uses: actions/upload-artifact@v4
+        with:
+          name: orbit-windows-x64
+          path: dist/
