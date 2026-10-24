@@ -11,6 +11,13 @@ Attaching to a process does not create that connection. Roblox's client can
 reject ordinary DLL loading. No Roblox-specific bridge or protection bypass is
 implemented or claimed. Solara's installer, binaries, and branding are not used.
 
+## Download the Windows prototype
+
+[Download the Windows x64 ZIP](https://github.com/Rad283/codex/raw/refs/heads/main/downloads/orbit-windows-x64.zip)
+([SHA-256 checksum](downloads/orbit-windows-x64.zip.sha256)).
+Extract the ZIP, keep its files together, and run `orbit.exe`. This package is
+the prototype described above; Roblox script execution is not implemented.
+
 ## Build on Windows
 
 Requirements: x64 Windows 10 version 1511 or later, Git, CMake 3.24+, and Visual
